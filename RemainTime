@@ -1,0 +1,38 @@
+package xorh.pcbang;
+
+import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+
+/**
+ * @author 태원
+ **/
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in); 
+        
+        int size = 30;  // 좌석 수
+        int[] seat = new int[size];
+       
+        int num;  // 좌석 번호
+        int hour;  // 시간
+        int min;  // 분
+        
+        System.out.print("좌석 입력 : "); 
+        num = sc.nextInt();
+        
+        if (size > num) {
+            System.out.print("시간 입력 : ");
+            hour = sc.nextInt(); // Int형 변수 입력 받음
+           
+            min = hour * 60;  // 시간 to 분 변환
+        
+            seat[num] = hour;  // 입력받은 좌석 번호 배열에 시간 추가
+            
+            System.out.println(num+"번 잔여 시간 : "+seat[num]);   
+        }
+        else 
+            System.out.print("다시 입력하세요.");     
+    }
+}
