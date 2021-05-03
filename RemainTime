@@ -1,12 +1,12 @@
 package xorh.pcbang;
 
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
-
+//import java.util.Timer;
+//import java.util.TimerTask;
+import java.util.Calendar;
 /**
  * @author 태원
- **/
+ */
 public class Main {
 
     public static void main(String[] args) {
@@ -30,7 +30,22 @@ public class Main {
         
             seat[num] = hour;  // 입력받은 좌석 번호 배열에 시간 추가
             
-            System.out.println(num+"번 잔여 시간 : "+seat[num]);   
+//            System.out.println(seat[num]);  // 잔여 시간 확인
+            
+            Calendar date1 = Calendar.getInstance(); 
+            date1.setTimeInMillis(System.currentTimeMillis());  // 현재 시간 
+            Calendar date2 = Calendar.getInstance(); 
+            date2.setTimeInMillis(System.currentTimeMillis() + 1000 * 60 * min);
+            
+            System.out.println("시작 시간 : " + date1.get(Calendar.HOUR) + "시 " + date1.get(Calendar.MINUTE) + "분");  // 시작 시간
+            System.out.println("종료 시간 : " + date2.get(Calendar.HOUR) + "시 " + date2.get(Calendar.MINUTE) +"분");  // 종료 예정 시간
+ 
+            long differ = (date2.getTimeInMillis() - date1.getTimeInMillis()) / 1000;  // 시간 > 초단위로 변환
+            System.out.println("사용시간부터 지금까지 " + differ / 60 + "분 후 종료");
+ 
+//            System.out.println(differ);
+            int money = (int) (differ / 60) / 60 * 1000;  // 초 > 시간단위 * 1000원
+            System.out.println("사용요금 = " + money + "원");
         }
         else 
             System.out.print("다시 입력하세요.");     
