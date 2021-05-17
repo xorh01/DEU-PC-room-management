@@ -1,0 +1,102 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package pcbang;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Scanner;
+
+/**
+ *
+ * @author xorh
+ */
+public class PowerOnState implements PowerState {
+
+    public void powerState() {
+//        System.out.println("컴 ON");
+        Scanner sc = new Scanner(System.in);
+
+        int size = 30;  // 좌석 수
+        int[] seat = new int[size];
+        int[] lefthour = new int[size];  //남은 시간
+        int[] leftmin = new int[size]; // 남은 분
+
+        int num;  // 좌석 번호
+        int hour;  // 시간
+        int min;  // 분
+
+        System.out.print("좌석 입력 : ");
+        num = sc.nextInt();
+
+        if (size > num) {
+            System.out.print("시간 입력 : ");
+            hour = sc.nextInt(); // Int형 변수 입력 받음
+
+            min = hour * 60;  // 시간 to 분 변환
+            lefthour[num] = hour;
+            leftmin[num] = min;
+
+            seat[num] = hour;  // 입력받은 좌석 번호 배열에 시간 추가
+
+//            System.out.println(seat[num]);  // 잔여 시간 확인
+            Calendar date1 = Calendar.getInstance();
+            date1.setTimeInMillis(System.currentTimeMillis());  // 현재 시간 
+            Calendar date2 = Calendar.getInstance();
+            date2.setTimeInMillis(System.currentTimeMillis() + 1000 * 60 * min);
+
+            Date date = new Date();
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("HH시 mm분").withZone(ZoneId.systemDefault());
+            String dateToStr = format.format(date.toInstant());
+//            System.out.println(dateToStr);  // 현재 시간 확인
+
+            System.out.println("시작 시간 : " + date1.get(Calendar.HOUR) + "시 " + date1.get(Calendar.MINUTE) + "분");  // 시작 시간
+            System.out.println("종료 시간 : " + date2.get(Calendar.HOUR) + "시 " + date2.get(Calendar.MINUTE) + "분");  // 종료 예정 시간
+
+            String FileName = "C:\\PC\\" + num + ".txt";
+
+            File delete = new File(FileName);
+
+            try {
+                BufferedWriter fw = new BufferedWriter(new FileWriter(FileName, true));
+
+                fw.write("사용 중" + "\n");
+                fw.write(dateToStr + "\n");  // 파일안에 문자열 쓰기
+                fw.flush();
+                fw.close();  // 객체 닫기
+
+                while (true) {
+                    if (leftmin[num] > 59) {
+                        leftmin[num] = leftmin[num] - (60 * (lefthour[num] - 1)) - 1;
+                    } else if (leftmin[num] < 0) {
+                        lefthour[num] -= 1;
+                        leftmin[num] = 59;
+                    }
+                    System.out.println("남은 시간 " + lefthour[num] + ":" + leftmin[num]);
+                    leftmin[num] -= 1;
+                    Thread.sleep(50);
+                    if (lefthour[num] == 0 && leftmin[num] == 0) {
+                        delete.delete();  //파일 삭제
+                        System.out.println("사용 종료");
+                        break;
+                    }  // 시간 종료 시 파일 삭제
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            long differ = (date2.getTimeInMillis() - date1.getTimeInMillis()) / 1000;  // 시간 > 초단위로 변환
+            int pay = (int) (differ / 60) / 60 * 1000;  // 초 > 시간단위 * 1000원
+            System.out.println("요금 = " + pay + "원");
+        } else {
+            System.out.print("다시 입력하세요.");
+        }
+    }
+}
