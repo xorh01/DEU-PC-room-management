@@ -3,6 +3,11 @@ Software Engineering Team project during one semester
 
 21년도 1학기 소프트웨어설계공학 프로젝트를 위한 Git
 
+210517
++ Command Pattern / State Pattern 사용 및 코드 분리
+
+Todo
+- 디자인 패턴 적용 한 내용 다듬기
 -------------------------------------------------
 210513
 
