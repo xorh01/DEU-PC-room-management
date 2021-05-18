@@ -28,6 +28,7 @@ public class Main {
         int[] seat = new int[size];
         int[] lefthour = new int[size];  //남은 시간
         int[] leftmin = new int[size]; // 남은 분
+        int[] showhour = new int[size];
 
         int num;  // 좌석 번호
         int hour;  // 시간
@@ -42,6 +43,7 @@ public class Main {
 
             min = hour * 60;  // 시간 to 분 변환
             lefthour[num] = hour;
+            showhour[num] = lefthour[num] - 1;
             leftmin[num] = min;
 
             seat[num] = hour;  // 입력받은 좌석 번호 배열에 시간 추가
@@ -77,12 +79,13 @@ public class Main {
                         leftmin[num] = leftmin[num] - (60 * (lefthour[num] - 1)) - 1;
                     } else if (leftmin[num] < 0) {
                         lefthour[num] -= 1;
+                        showhour[num] -= 1;
                         leftmin[num] = 59;
                     }
-                    System.out.println("남은 시간 " + lefthour[num] + ":" + leftmin[num]);
+                    System.out.println("남은 시간 " + showhour[num] + ":" + leftmin[num]);
                     leftmin[num] -= 1;
                     Thread.sleep(50);
-                    if (lefthour[num] == 0 && leftmin[num] == 0) {
+                    if (showhour[num] == 0 && leftmin[num] == 0) {
                         delete.delete();  //파일 삭제
                         System.out.println("사용 종료");
                         break;
