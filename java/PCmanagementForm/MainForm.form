@@ -286,12 +286,18 @@
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Time2ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="USE2">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xbe48;&#xc790;&#xb9ac;"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="USE2ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -355,10 +361,11 @@
         <Component class="javax.swing.JComboBox" name="COMBO">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
+              <StringArray count="4">
                 <StringItem index="0" value="&#xcee4;&#xd53c;(2000)"/>
-                <StringItem index="1" value="&#xacfc;&#xc790;(1000)"/>
-                <StringItem index="2" value="1&#xc2dc;&#xac04;"/>
+                <StringItem index="1" value="&#xc5bc;&#xc74c;&#xcd94;&#xac00;(500)"/>
+                <StringItem index="2" value="&#xacfc;&#xc790;(1000)"/>
+                <StringItem index="3" value="1&#xc2dc;&#xac04;"/>
               </StringArray>
             </Property>
           </Properties>
@@ -374,6 +381,9 @@
             <Property name="editable" type="boolean" value="false"/>
             <Property name="text" type="java.lang.String" value="No.1"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
@@ -395,6 +405,9 @@
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TimeActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="USE">
           <Properties>

@@ -37,6 +37,8 @@ public class MainForm extends javax.swing.JFrame {
     int j = 1;
     int k = 1;
 
+    int user = 0;
+
     int count = 0;
 
     public MainForm() {
@@ -189,9 +191,19 @@ public class MainForm extends javax.swing.JFrame {
         });
 
         Time2.setEnabled(false);
+        Time2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Time2ActionPerformed(evt);
+            }
+        });
 
         USE2.setText("빈자리");
         USE2.setEnabled(false);
+        USE2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                USE2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -236,7 +248,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        COMBO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "커피(2000)", "과자(1000)", "1시간" }));
+        COMBO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "커피(2000)", "얼음추가(500)", "과자(1000)", "1시간" }));
         COMBO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 COMBOActionPerformed(evt);
@@ -245,6 +257,11 @@ public class MainForm extends javax.swing.JFrame {
 
         jTextField1.setEditable(false);
         jTextField1.setText("No.1");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("주문하기");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -261,6 +278,11 @@ public class MainForm extends javax.swing.JFrame {
         });
 
         Time.setEnabled(false);
+        Time.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TimeActionPerformed(evt);
+            }
+        });
 
         USE.setText("빈자리");
         USE.setEnabled(false);
@@ -442,18 +464,26 @@ public class MainForm extends javax.swing.JFrame {
         TextArea2.setText(""); //텍스트 화면 초기화
         int pCoffe = p.coffe;
         int pSnack = p.snack;
+        int pIce = p.ice;
         int p2Coffe = p2.coffe;
+        int p2Ice = p2.ice;
         int p2Snack = p2.snack;
         int pTime = p.time;
         int pTime2 = p2.time;
+        int pUser = p.user;
+        int pUser2 = p2.user;
 
-        int tCoffe = pCoffe + p2.coffe;
+        int tCoffe = p.coffe + p2.coffe;
+        int tIce = p.ice + p2.ice;
         int tSnack = p.snack + p2.snack;
         int tTime = p.time + p2.time;
+        int tUser = p.user + p2.user;
 
         TextArea2.append(p.getCoffe(tCoffe) + "\n");
+        TextArea2.append(p.getIce(tIce) + "\n");
         TextArea2.append(p.getSnack(tSnack) + "\n");
         TextArea2.append(p.getTime(tTime) + "\n");
+        TextArea2.append(p.getUser(tUser) + "\n");
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
@@ -477,27 +507,16 @@ public class MainForm extends javax.swing.JFrame {
 
         remote.setCommand(0, firstPowerOn, firstPowerOff);
 
-        j++;
-        if (j % 2 == 0) {
-            USE.setText(seat.Useable());
-            remote.onButtonPressed(0);
-        } else {
-            seat.setUseState(new NotUse());
-            USE.setText(seat.Useable());
-            remote.offButtonPressed(0);
-        }
-
-//        if (j % 2 == 0) {
-//
-//            USE.setText(seat.Useable());
-//        } else {
-//            seat.setUseState(new NotUse());
-//            USE.setText(seat.Useable());
-//        }
         RemainTime rt = new RemainTime();
         rt.GetTime(p.time);
-        if (p.time > 0 && j % 2 == 0) {
 
+        if (p.time > 0) {
+            j++;
+        }
+        if (p.time > 0 && j % 2 == 0) {
+            USE.setText(seat.Useable());
+            remote.onButtonPressed(0);
+            p.user++;
             TimerTask ttask = new TimerTask() {
                 public void run() {
                     if (count < 3600) {
@@ -513,10 +532,11 @@ public class MainForm extends javax.swing.JFrame {
             timer.schedule(ttask, 1, 1000);
             Time.setText("");
         } else {
+            seat.setUseState(new NotUse());
+            USE.setText(seat.Useable());
+            remote.offButtonPressed(0);
             Time.setText("충전 시간이 없습니다.\n");
-
         }
-
     }//GEN-LAST:event_STARTActionPerformed
 
     private void START2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_START2ActionPerformed
@@ -532,18 +552,16 @@ public class MainForm extends javax.swing.JFrame {
 
         remote.setCommand(1, secondPowerOn, secondPowerOff);
 
-        k++;
-        if (k % 2 == 0) {
-            USE.setText(seat.Useable());
-            remote.onButtonPressed(1);
-        } else {
-            USE.setText(seat.Useable());
-            remote.offButtonPressed(1);
-        }
         RemainTime rt2 = new RemainTime();
         rt2.GetTime(p2.time);
-        if (p2.time > 0 && k % 2 == 0) {
 
+        if (p2.time > 0) {
+            k++;
+        }
+        if (p2.time > 0 && k % 2 == 0) {
+            USE2.setText(seat.Useable());
+            remote.onButtonPressed(1);
+            p2.user++;
             TimerTask ttask = new TimerTask() {
                 public void run() {
                     if (count < 3600) {
@@ -559,14 +577,32 @@ public class MainForm extends javax.swing.JFrame {
             timer.schedule(ttask, 1, 1000);
             Time2.setText("");
         } else {
+            seat.setUseState(new NotUse());
+            USE2.setText(seat.Useable());
+            remote.offButtonPressed(1);
             Time2.setText("충전 시간이 없습니다.\n");
-
         }
     }//GEN-LAST:event_START2ActionPerformed
 
     private void USEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_USEActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_USEActionPerformed
+
+    private void USE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_USE2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_USE2ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void Time2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Time2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Time2ActionPerformed
+
+    private void TimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TimeActionPerformed
 
     /**
      * @param args the command line arguments
