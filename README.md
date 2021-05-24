@@ -3,6 +3,13 @@ Software Engineering Team project during one semester
 
 21년도 1학기 소프트웨어설계공학 프로젝트를 위한 Git
 
+
+210524
++ Command Pattern 적용 + 시간 오류 수정
+
+Todo
+- Decorator Pattern 적용
+-------------------------------------------------
 210523
 + 코드 분리 및 GUI 적용
 
