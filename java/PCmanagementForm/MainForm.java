@@ -5,25 +5,30 @@
  */
 package PCmanagementForm;
 
-import PCmanagement.Main;
+import Decorator.Beverage;
+import Decorator.Coffee;
+import Decorator.Milk;
+import Decorator.Shot;
 import PCmanagement.Pc1;
 import PCmanagement.Pc2;
-import PCmanagement.TemplateMethod;
+import PCmanagement.Clear;
+//import PCmanagement.TemplateMethod;
 import RemainTime.NotUse;
-import RemainTime.RemainTime;
+//import RemainTime.RemainTime;
 import RemainTime.RemainTime;
 import RemainTime.Seat;
-import RemainTime.Use;
+//import RemainTime.Use;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JTextArea;
-import PCCommand.Command;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
+//import javax.swing.JTextArea;
+//import PCCommand.Command;
 import PCCommand.PowerOffCommand;
 import PCCommand.PowerOnCommand;
 import PCCommand.Power;
 import PCCommand.PowerCommand;
+//import PCCommand.Remote;
 
 /**
  *
@@ -31,9 +36,11 @@ import PCCommand.PowerCommand;
  */
 public class MainForm extends javax.swing.JFrame {
 
-    Main m = new Main();
     Pc1 p = new Pc1();
     Pc2 p2 = new Pc2();
+    Beverage beverage = new Coffee();
+    Beverage beverage2 = new Coffee();
+    Clear clear = new Clear();
     int j = 1;
     int k = 1;
 
@@ -161,7 +168,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        COMBO2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "커피(2000)", "과자(1000)", "1시간" }));
+        COMBO2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "커피(2000)", "과자(1000)", "1시간", "우유(500)", "샷(500)" }));
         COMBO2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 COMBO2ActionPerformed(evt);
@@ -248,7 +255,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        COMBO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "커피(2000)", "얼음추가(500)", "과자(1000)", "1시간" }));
+        COMBO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "커피(2000)", "과자(1000)", "1시간", "우유(500)", "샷(500)" }));
         COMBO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 COMBOActionPerformed(evt);
@@ -425,6 +432,13 @@ public class MainForm extends javax.swing.JFrame {
         String combo = (String) COMBO.getSelectedItem();
         p.Count(combo); //주문했을때 갯수 올리기
 
+        if (combo == "우유(500)") {
+            beverage = new Milk(beverage);
+        }
+        if (combo == "샷(500)") {
+            beverage = new Shot(beverage);
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -432,6 +446,13 @@ public class MainForm extends javax.swing.JFrame {
 
         String combo2 = (String) COMBO2.getSelectedItem();
         p2.Count(combo2); //주문했을때 갯수 올리기
+
+        if (combo2 == "우유(500)") {
+            beverage2 = new Milk(beverage2);
+        }
+        if (combo2 == "샷(500)") {
+            beverage2 = new Shot(beverage2);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
@@ -462,27 +483,36 @@ public class MainForm extends javax.swing.JFrame {
         //매출 보기 클릭시
 
         TextArea2.setText(""); //텍스트 화면 초기화
-        int pCoffe = p.coffe;
-        int pSnack = p.snack;
-        int pIce = p.ice;
-        int p2Coffe = p2.coffe;
-        int p2Ice = p2.ice;
-        int p2Snack = p2.snack;
-        int pTime = p.time;
-        int pTime2 = p2.time;
-        int pUser = p.user;
-        int pUser2 = p2.user;
+        int pCoffee = p.coffee;
+        int p2Coffee = p2.coffee;
+//        int pSnack = p.snack;
+//        int p2Snack = p2.snack;
+//        int pTime = p.time;
+//        int pTime2 = p2.time;
+//        int pUser = p.user;
+//        int pUser2 = p2.user;
+//        int pTimeCount = p.timecount;
+//        int p2TimeCount = p2.timecount;
 
-        int tCoffe = p.coffe + p2.coffe;
-        int tIce = p.ice + p2.ice;
+        int tCoffee = p.coffee + p2.coffee;
         int tSnack = p.snack + p2.snack;
-        int tTime = p.time + p2.time;
         int tUser = p.user + p2.user;
+        int tTimeCount = p.timecount + p2.timecount;
+//        int tCoffeeCount = p.coffeecount + p2.coffeecount;
+//        int tSnackCount = p.snackcount + p2.snackcount;
 
-        TextArea2.append(p.getCoffe(tCoffe) + "\n");
-        TextArea2.append(p.getIce(tIce) + "\n");
+        if (pCoffee == 0 && p2Coffee == 0) {
+            TextArea2.append(p.getCoffee(tCoffee) + "\n");
+        } else if (pCoffee == 1 && p2Coffee == 0) {
+            TextArea2.append(p.getCoffee(beverage.cost()) + "\n");
+        } else if (pCoffee == 0 && p2Coffee == 1) {
+            TextArea2.append(p.getCoffee(beverage2.cost()) + "\n");
+        } else {
+            TextArea2.append(p.getCoffee(beverage.cost() + beverage2.cost()) + "\n");
+        }
+
         TextArea2.append(p.getSnack(tSnack) + "\n");
-        TextArea2.append(p.getTime(tTime) + "\n");
+        TextArea2.append(p.getTime(tTimeCount) + "\n");
         TextArea2.append(p.getUser(tUser) + "\n");
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -535,6 +565,12 @@ public class MainForm extends javax.swing.JFrame {
             seat.setUseState(new NotUse());
             USE.setText(seat.Useable());
             remote.offButtonPressed(0);
+//            p.time = 0;
+//            p.snackcount = 0;
+//            p.coffeecount = 0;
+//            p.milk = 0;
+//            p.shot = 0;
+            clear.Clear(1);
             Time.setText("충전 시간이 없습니다.\n");
         }
     }//GEN-LAST:event_STARTActionPerformed
@@ -580,6 +616,12 @@ public class MainForm extends javax.swing.JFrame {
             seat.setUseState(new NotUse());
             USE2.setText(seat.Useable());
             remote.offButtonPressed(1);
+            p2.time = 0;
+            p2.snackcount = 0;
+            p2.coffeecount = 0;
+            p2.milk = 0;
+            p2.shot = 0;
+            p2.time = 0;
             Time2.setText("충전 시간이 없습니다.\n");
         }
     }//GEN-LAST:event_START2ActionPerformed

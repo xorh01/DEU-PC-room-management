@@ -6,7 +6,7 @@
 package PCmanagementForm;
 
 import PCmanagement.Login;
-import static java.lang.System.exit;
+//import static java.lang.System.exit;
 import javax.swing.JOptionPane;
 
 /**
@@ -109,32 +109,31 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDActionPerformed
-        
+
     }//GEN-LAST:event_IDActionPerformed
 
     private void LOGINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOGINActionPerformed
-        String pwd=PWD.getText();
-        String id=ID.getText();
-        
-        Login l=new Login();
-         l.Find();
-         l.SplitLine(id);
-         
-        if (id.equals(l.SPline0()) && pwd.equals(l.SPline1())){
-            JOptionPane aa=new JOptionPane();
+        String pwd = PWD.getText();
+        String id = ID.getText();
+
+        Login l = new Login();
+        l.Find();
+        l.SplitLine(id);
+
+        if (id.equals(l.SPline0()) && pwd.equals(l.SPline1())) {
+            JOptionPane aa = new JOptionPane();
             aa.showMessageDialog(null, "로그인 성공");
-            MainForm mf=new MainForm();
+            MainForm mf = new MainForm();
             mf.setVisible(true);
-        }
-        else{
-            JOptionPane aa=new JOptionPane();
+        } else {
+            JOptionPane aa = new JOptionPane();
             aa.showMessageDialog(null, "로그인 실패");
         }
     }//GEN-LAST:event_LOGINActionPerformed
 
     private void SIGNUPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SIGNUPActionPerformed
-         SignUpForm su=new SignUpForm();
-         su.setVisible(true);
+        SignUpForm su = new SignUpForm();
+        su.setVisible(true);
     }//GEN-LAST:event_SIGNUPActionPerformed
 
     /**

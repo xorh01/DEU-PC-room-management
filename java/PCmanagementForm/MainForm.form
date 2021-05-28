@@ -243,10 +243,12 @@
         <Component class="javax.swing.JComboBox" name="COMBO2">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
+              <StringArray count="5">
                 <StringItem index="0" value="&#xcee4;&#xd53c;(2000)"/>
                 <StringItem index="1" value="&#xacfc;&#xc790;(1000)"/>
                 <StringItem index="2" value="1&#xc2dc;&#xac04;"/>
+                <StringItem index="3" value="&#xc6b0;&#xc720;(500)"/>
+                <StringItem index="4" value="&#xc0f7;(500)"/>
               </StringArray>
             </Property>
           </Properties>
@@ -361,11 +363,12 @@
         <Component class="javax.swing.JComboBox" name="COMBO">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
+              <StringArray count="5">
                 <StringItem index="0" value="&#xcee4;&#xd53c;(2000)"/>
-                <StringItem index="1" value="&#xc5bc;&#xc74c;&#xcd94;&#xac00;(500)"/>
-                <StringItem index="2" value="&#xacfc;&#xc790;(1000)"/>
-                <StringItem index="3" value="1&#xc2dc;&#xac04;"/>
+                <StringItem index="1" value="&#xacfc;&#xc790;(1000)"/>
+                <StringItem index="2" value="1&#xc2dc;&#xac04;"/>
+                <StringItem index="3" value="&#xc6b0;&#xc720;(500)"/>
+                <StringItem index="4" value="&#xc0f7;(500)"/>
               </StringArray>
             </Property>
           </Properties>
